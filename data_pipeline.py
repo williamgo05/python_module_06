@@ -1,4 +1,4 @@
-import typing
+from typing import Protocol, Any
 from data_processor import (
                     DataProcessor,
                     NumericProcessor,
@@ -7,7 +7,7 @@ from data_processor import (
                 )
 
 
-class ExportPlugin(typing.Protocol):
+class ExportPlugin(Protocol):
 
     def process_output(self, data: list[tuple[int, str]]) -> None:
         pass
@@ -51,7 +51,7 @@ class DataStream:
 
             plugin.process_output(data)
 
-    def process_stream(self, stream: list[typing.Any]) -> None:
+    def process_stream(self, stream: list[Any]) -> None:
         for data in stream:
             processed = False
 

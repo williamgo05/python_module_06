@@ -1,12 +1,12 @@
-import abc
+from abc import ABC, abstractmethod
 
 
-class Creature(abc.ABC):
+class Creature(ABC):
     def __init__(self, name: str, type: str):
         self.creature_name = name
         self.creature_type = type
 
-    @abc.abstractmethod
+    @abstractmethod
     def attack(self) -> str:
         pass
 
@@ -27,15 +27,15 @@ class Pyrodon(Creature):
         return "Pyrodon uses Flamethrower!"
 
 
-class TransformCapability(abc.ABC):
+class TransformCapability(ABC):
     def __init__(self):
         self.is_transformed = False
 
-    @abc.abstractmethod
+    @abstractmethod
     def transform(self) -> str:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def revert(self) -> str:
         pass
 

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import typing
+from typing import Any
 
 
 class DataProcessor(ABC):
@@ -10,11 +10,11 @@ class DataProcessor(ABC):
         self.data_processed = 0
 
     @abstractmethod
-    def validate(self, data: typing.Any) -> bool:
+    def validate(self, data: Any) -> bool:
         pass
 
     @abstractmethod
-    def ingest(self, data: typing.Any) -> None:
+    def ingest(self, data: Any) -> None:
         pass
 
     def output(self) -> tuple[int, str]:
@@ -27,14 +27,14 @@ class DataProcessor(ABC):
 
 class NumericProcessor(DataProcessor):
 
-    def validate(self, data: typing.Any) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, (int, float)):
             return True
         if isinstance(data, list):
             return all(isinstance(item, (int, float)) for item in data)
         return False
 
-    def ingest(self, data: typing.Any) -> None:
+    def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Invalid numeric data!")
 
@@ -49,14 +49,14 @@ class NumericProcessor(DataProcessor):
 
 class TextProcessor(DataProcessor):
 
-    def validate(self, data: typing.Any) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, str):
             return True
         if isinstance(data, list):
             return all(isinstance(item, str) for item in data)
         return False
 
-    def ingest(self, data: typing.Any) -> None:
+    def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Invalid text data!")
 
@@ -70,7 +70,7 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
-    def validate(self, data: typing.Any) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, dict):
             return all(
                 isinstance(key, str) and isinstance(value, str)
@@ -88,7 +88,7 @@ class LogProcessor(DataProcessor):
 
         return False
 
-    def ingest(self, data: typing.Any) -> None:
+    def ingest(self, data: Any) -> None:
         if not self.validate(data):
             raise ValueError("Invalid log data")
 
@@ -144,7 +144,7 @@ def main() -> None:
 
     print("\nTesting output() with empty processor...")
     try:
-        numeric.output()
+        print(numeric.output())
     except ValueError as error:
         print(f"Exception caught: {error}")
 
